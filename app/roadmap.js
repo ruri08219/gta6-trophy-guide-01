@@ -1,83 +1,50 @@
-// The road to the Platinum in nine stages, built from the official descriptions:
-// which story chapters and missions come first, which collectibles and counts
-// follow, and what order to do them in. The wording is my own; the stage order
-// follows the launch-era guides (PowerPyx, Of Zen) cited in trophies.json.
-export const ROADMAP = [
+// The 9-stage route to the Platinum. Each stage names the trophies it
+// clears; the app renders this list into #roadmap. Stage order matters:
+// the story and the one missable trophy come first, the grinds last.
+window.ROADMAP_STAGES = [
   {
-    stage: 1,
-    title: 'Play the story — Chapters 1 to 4',
-    text: 'Finish Gone Fishing, then Chapters 1–4 and the named story missions (Breakfast Run, The Cartel Heist, Child\u2019s Play, Headliners, VCIA Takedown, Operation Savage Glory) up to the final mission. While you are in Chapter 1, meditate at the first spot — Positive Mental Attitude is the list\u2019s one possibly missable trophy, and its Chapter 1 spot goes away when the chapter ends.',
-    trophies: ['Just Like Paradise', 'Paradise Lost', 'T**s Ass Drug Money', 'Vice City, Baby!', 'Top Of The World, Ma', 'You Gotta Know When to Get Off', 'Trust', 'Break the Bank', 'Family Matters', 'DWNFALL', 'Hi-Jacked', 'Snow Storm', 'Positive Mental Attitude', 'Personal Best', 'Actions Speak Louder', 'Bad Luck, I Guess', 'The Truth Is Out There'],
+    title: "Start the story — and meditate from Chapter 1",
+    text: "Play Chapters 1 and 2, and meditate at every meditation spot you pass. The meditation spots are the only thing that can lock you out later, so do them as they appear instead of saving them for the end.",
+    trophies: ["Just Like Paradise", "Paradise Lost", "T**s Ass Drug Money", "Positive Mental Attitude"]
   },
   {
-    stage: 2,
-    title: 'Side-character finales',
-    text: 'Play the mission strands for Andy, Kenton, Billy, Randy and Tyrone through to each one\u2019s final mission, and hunt Bret\u2019s unique animal. These strands unlock as the story advances, so work them as they appear.',
-    trophies: ['Road to Rehabilitation', 'This Was No Boat Accident', 'The Lone Rider', 'Supply & Demand', 'Spin On This!', 'Fair Game'],
+    title: "Finish the story",
+    text: "Play Chapters 3 and 4 through to the final mission. Every chapter and mission trophy in this stage is unmissable — just finish the story.",
+    trophies: ["Vice City, Baby!", "Top Of The World, Ma", "You Gotta Know When to Get Off", "Trust", "Break the Bank", "Family Matters", "DWNFALL", "Hi-Jacked", "Snow Storm"]
   },
   {
-    stage: 3,
-    title: 'Strangers & Freaks',
-    text: 'Complete 8 stranger mission strands across Leonida. Strangers show up as map icons while you explore — start a strand when you find it instead of leaving them all for the end.',
-    trophies: ['Strangers & Freaks'],
+    title: "Partner moments and story side scenes",
+    text: "With the story done, mop up the partner and story-flavoured trophies: lose a 4-star wanted level with your partner, chain three shop robberies, take the Ocean Beach cocktail, and let the story moments for Personal Best and Actions Speak Louder land.",
+    trophies: ["Hot Together", "Retail Therapy", "In The Beginning…", "Personal Best", "Actions Speak Louder"]
   },
   {
-    stage: 4,
-    title: 'Explore Leonida',
-    text: 'Open up the whole map: all 52 areas for The Goodtime State, WAiNK It at 100 locations, and 100 vehicles discovered. This pairs with the stranger strands — explore as you travel.',
-    trophies: ['The Goodtime State', 'You WAiNKer!', 'Whip It Good'],
+    title: "Contacts and strangers",
+    text: "Work every contact strand to its final mission — Andy, Kenton, Billy, Randy and Tyrone — and finish eight stranger strands across Leonida. There are more than eight stranger strands, so skip any you dislike.",
+    trophies: ["Road to Rehabilitation", "This Was No Boat Accident", "The Lone Rider", "Supply & Demand", "Spin On This!", "Strangers & Freaks"]
   },
   {
-    stage: 5,
-    title: 'Activities and medals',
-    text: 'Sample every activity once, then chase the medals: 250 stunts, gold in all 42 Shooting Range challenges, 20 different race wins, a Top Fun drone win at every location, beating Cal at fishing, and one finished arcade game.',
-    trophies: ['Master of None', 'Cunning Stunts', 'The Shootist', 'Earn Cash, Not Kudos', 'Top Fun', 'Baited My Tackle', 'Stick Fiddler'],
+    title: "Sample every activity",
+    text: "Try one of each of the 9 activity types, finish an arcade game, bowl a frame at the Kolt & Associates alley, beat Cal at fishing, and start the race lists — 20 different race wins and a drone win at all 14 Top Fun locations.",
+    trophies: ["Master of None", "Stick Fiddler", "Let’s Go Bowling", "Baited My Tackle", "Earn Cash, Not Kudos", "Top Fun"]
   },
   {
-    stage: 6,
-    title: 'Partner play and robberies',
-    text: 'Bring your partner for the 4-star escape and the three-shop chain, then work the robbery set: 5 enemies in one Combat Focus, the unscheduled VCIA departure, the Rhino tanks, a silent jewelry store, 5 bank vaults, an armored truck, and one illegal operation per gang.',
-    trophies: ['Hot Together', 'Retail Therapy', 'Gunslinger', 'Catch Me If You Can', 'Challenging Tank', 'Sneakthief', 'Maximum Withdrawal', 'A Classic Blitz Play', 'Pest Control'],
+    title: "Combat, heists and the wanted level",
+    text: "Gold all 42 Shooting Range challenges, drop five enemies in one Combat Focus, rob a jewelry store undetected, hit an armored truck, rob five bank vaults, and take one illegal operation from each of the 9 gangs.",
+    trophies: ["The Shootist", "Gunslinger", "Sneakthief", "A Classic Blitz Play", "Maximum Withdrawal", "Pest Control"]
   },
   {
-    stage: 7,
-    title: 'Collectibles and money',
-    text: 'Finish the long hunts: 3 collectible card sets, $250,000 of marked bills laundered, $100,000 spent across all shops, all 8 garage properties bought, and 10 vehicles registered to the Scooter Bros app.',
-    trophies: ["Don't Touch My Deck", 'Dime on the Dollar', 'Treat Yo Self', 'Little Boxes', 'On the Spot'],
+    title: "Collectibles and the map",
+    text: "Explore all 52 areas, discover 100 vehicles, register 10 of them in the Scooter Bros app, complete 3 card sets, WAiNK It at 100 locations, hunt Bret's unique animal, and buy all 8 garage properties.",
+    trophies: ["The Goodtime State", "Whip It Good", "On the Spot", "Don't Touch My Deck", "You WAiNKer!", "Fair Game", "Little Boxes"]
   },
   {
-    stage: 8,
-    title: 'One-offs and challenges',
-    text: 'Clear the small moments — a cocktail on Ocean Beach, the showroom smash, a frame at the Kolt & Associates alley, a melee drive-by — and complete 50 challenges along the way.',
-    trophies: ['In The Beginning…', 'Capital Offense', 'Let’s Go Bowling', 'Ten Pin', 'One Last Thing'],
+    title: "The grinds",
+    text: "The long counters: 250 stunts, 50 challenges, $250,000 of marked bills laundered, and $100,000 spent in shops. These climb while you play — check the counters, then farm what is left with the guides on each card.",
+    trophies: ["Cunning Stunts", "One Last Thing", "Dime on the Dollar", "Treat Yo Self"]
   },
   {
-    stage: 9,
-    title: '100% and the Platinum',
-    text: 'Check the in-game stats page, mop up whatever is left, and attain 100% completion for A Long Road. The Platinum, Vice Got a Price!, pops right after it.',
-    trophies: ['A Long Road', 'Vice Got a Price!'],
-  },
-];
-
-// Paint the nine stages into the page's ordered list, marking which of each
-// stage's trophies are already earned.
-export function paintRoadmap(listElement, earnedNames) {
-  const earned = new Set(earnedNames);
-  listElement.innerHTML = '';
-  for (const step of ROADMAP) {
-    const item = document.createElement('li');
-    const heading = document.createElement('h3');
-    heading.textContent = `Stage ${step.stage} — ${step.title}`;
-    const body = document.createElement('p');
-    body.textContent = step.text;
-    const done = step.trophies.filter((name) => earned.has(name)).length;
-    const count = document.createElement('p');
-    count.className = 'stage-count';
-    count.textContent = `${done} of ${step.trophies.length} earned in this stage`;
-    const names = document.createElement('p');
-    names.className = 'stage-trophies';
-    names.textContent = step.trophies.join(' · ');
-    item.append(heading, body, count, names);
-    listElement.append(item);
+    title: "Odd ones out, 100%, and the Platinum",
+    text: "Sweep up the strange ones — the unscheduled VCIA departure, the Rhinos, the showroom smash, the melee drive-by, the second-try trophy and the odd encounter — then check the stats screen for 100% completion. The Platinum pops with the last trophy.",
+    trophies: ["Catch Me If You Can", "Challenging Tank", "Capital Offense", "Ten Pin", "Bad Luck, I Guess", "The Truth Is Out There", "A Long Road", "Vice Got a Price!"]
   }
-}
+];

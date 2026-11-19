@@ -1,58 +1,37 @@
 # GTA VI Trophy Guide & Tracker
 
-[![GTA 6 Trophy Guide](https://make.fun/badge/gta6-trophy-guide-01.svg)](https://make.fun/bounty/gta6-trophy-guide-01)
+[![Competition](https://make.fun/badge/gta6-trophy-guide-01.svg)](https://make.fun/bounty/gta6-trophy-guide-01)
 [![Rank](https://make.fun/badge/gta6-trophy-guide-01/ruri08219/gta6-trophy-guide-01/rank.svg)](https://make.fun/bounty/gta6-trophy-guide-01)
 [![Reward](https://make.fun/badge/gta6-trophy-guide-01/ruri08219/gta6-trophy-guide-01/reward.svg)](https://make.fun/bounty/gta6-trophy-guide-01)
 
-An offline guide and tracker for all **55 PlayStation 5 trophies** of Grand Theft Auto VI —
-built for the [make.fun bounty “Build the best GTA 6 trophy guide”](https://make.fun/bounty/gta6-trophy-guide-01).
+An offline guide and checklist for all **55 Grand Theft Auto VI trophies** on PlayStation 5 — 1 Platinum, 2 Gold, 6 Silver, 46 Bronze — built for the [make.fun bounty “Build the best GTA 6 trophy guide”](https://make.fun/bounty/gta6-trophy-guide-01) ($250, top 50 share).
 
 ## What it is
 
-- **Every trophy, official and complete:** all 55 names, descriptions and grades as PlayStation
-  publishes them (1 Platinum, 2 Gold, 6 Silver, 46 Bronze; 28 hidden; 0 online), each with a
-  guide written in our own words that names its sources beside it. Triggers the launch-era
-  guides have not confirmed yet are flagged as unconfirmed, never invented.
-- **A tracker:** a checklist saved in your browser (localStorage), with export to a file and
-  import back, filters by kind (story, missable, collectibles, activities, online) and grade,
-  text search, and a spoiler setting that hides story trophy names and descriptions until earned.
-- **A roadmap to the Platinum:** nine stages in order — story first (with the one possibly
-  missable trophy, Positive Mental Attitude, flagged up front), then side-character finales,
-  Strangers &amp; Freaks, exploration, activities and medals, partner play and robberies,
-  collectibles and money, one-offs and challenges, and finally 100% completion for A Long Road,
-  after which the Platinum pops.
+- **Every trophy, with a guide.** Each of the 55 official trophies carries a guide written for this page, in its own words, naming the source of each fact (PowerPyx, PSNProfiles, Exophase, GTA Zone, GTABase). Where a trigger has not been confirmed, the guide says so instead of guessing.
+- **A checklist that saves.** Tick trophies as you earn them; progress is stored in your browser's localStorage, with export to a file and import back.
+- **Filters that answer real questions.** Filter by kind (story 25, missable 1, collectibles 8, activities 21, online 0 — there are no online trophies) and by grade, or search by name, description or guide text.
+- **A spoiler setting.** With it on, unearned hidden story trophies show as “Hidden story trophy” instead of spoiling the story.
+- **A 9-stage roadmap to the Platinum.** Story first, the one possibly-missable trophy (Positive Mental Attitude — meditate at the Chapter 1 spots before you leave Chapter 1) second, the grinds last.
+- **Fully offline.** Plain HTML, CSS and JavaScript, no framework, no build step, no network requests. Open `app/index.html` through any static server — `node serve.ts` serves it at <http://localhost:8080>.
 
-## How to run it
-
-No build step, no network needed — it is plain static files under `app/`:
+## Try it
 
 ```sh
 node serve.ts
-# then open http://localhost:8080
+# open http://localhost:8080
 ```
 
-Or open `app/index.html` from any static file server with `app/` at its root.
-
-## How to hand it in
+## Hand in
 
 ```sh
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-That copies `app/` and `screenshots/` to the output directory and writes
-`dossier.json` with the vendored make.fun library (`vendor/makefun-frontend.ts`).
+`main.ts` copies `app/` and `screenshots/` into the output directory and writes `dossier.json` with the kit's `buildDossier` from `vendor/makefun-frontend.ts`.
 
-## Layout
+## Notes
 
-- `app/index.html` — the page: progress, filters, roadmap, checklist
-- `app/style.css` — the look (our own design; no Rockstar artwork or logo)
-- `app/app.js` — the tracker: checklist, filters, search, spoiler setting, export/import
-- `app/roadmap.js` — the nine-stage roadmap to the Platinum
-- `app/data/trophies.json` — the 55 official trophies with our guides and sources
-- `screenshots/` — four renders of the guide in a browser (checklist, guide detail,
-  roadmap, spoiler setting)
-- `main.ts` — the hand-in program; `serve.ts` — a tiny local static server
-
-## License
-
-MIT — see [LICENSE](LICENSE).
+- Trophy names, descriptions and grades are the official PlayStation 5 list as published before launch.
+- This is an unofficial fan guide, not affiliated with Rockstar Games, and uses no Rockstar artwork, logos or game screenshots. The screenshots in `screenshots/` are renders of this guide's own pages.
+- License: MIT — see [LICENSE](LICENSE).

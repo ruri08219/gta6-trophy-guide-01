@@ -1,65 +1,36 @@
-// A tiny static file server for app/ (Node 22, stdlib only), a development
-// convenience so the guide can be tried locally with no build step:
-//   node serve.ts            -> http://localhost:8080
-//   node serve.ts --port 9000 -> http://localhost:9000
-// It serves only files under app/, with the MIME types a browser needs, and
-// refuses anything outside that folder. Not a server for the internet.
-import { createReadStream, statSync } from 'node:fs';
-import { createServer } from 'node:http';
-import { extname, join, normalize, resolve, sep } from 'node:path';
-import { fileURLToPath } from 'node:url';
+// Tiny static server for trying the guide locally: serves app/ on
+// http://localhost:8080. Nothing else — no logging, no directory listing
+// beyond index.html, no network calls of its own.
+import { createReadStream, existsSync, statSync } from "node:fs";
+import { createServer } from "node:http";
+import { extname, join, normalize, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const appRoot = resolve(fileURLToPath(new URL('./app', import.meta.url)));
-const argv = process.argv.slice(2);
-const portFlag = argv.indexOf('--port');
-const wanted = portFlag === -1 ? 8080 : Number(argv[portFlag + 1]);
-const port = Number.isInteger(wanted) && wanted > 0 && wanted < 65536 ? wanted : 8080;
+const appDir = resolve(join(fileURLToPath(new URL(".", import.meta.url)), "app"));
+const port = Number(process.argv.find((a) => a.startsWith("--port="))?.split("=")[1] ?? 8080);
 
-const TYPES = {
-  '.html': 'text/html; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8',
-  '.mjs': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.svg': 'image/svg+xml',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg',
-  '.webp': 'image/webp',
-  '.ico': 'image/x-icon',
-  '.woff2': 'font/woff2',
+const mime: Record<string, string> = {
+  ".css": "text/css; charset=utf-8",
+  ".html": "text/html; charset=utf-8",
+  ".js": "text/javascript; charset=utf-8",
+  ".json": "application/json; charset=utf-8",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
 };
 
-createServer((req, res) => {
-  const url = new URL(req.url ?? '/', 'http://localhost');
-  let path = url.pathname;
-  try {
-    path = decodeURIComponent(path);
-  } catch {
-    res.writeHead(400).end('bad request');
+const server = createServer((req, res) => {
+  const path = normalize("/" + (req.url ?? "/").split("?")[0]);
+  const file = join(appDir, path === "/" ? "index.html" : path);
+  if (!file.startsWith(appDir) || !existsSync(file) || !statSync(file).isFile()) {
+    res.writeHead(404, { "content-type": "text/plain; charset=utf-8" });
+    res.end("not found\n");
     return;
   }
-  if (path.endsWith('/')) path += 'index.html';
-  const file = resolve(join(appRoot, normalize(path)));
-  if (file !== appRoot && !file.startsWith(appRoot + sep)) {
-    res.writeHead(403).end('forbidden');
-    return;
-  }
-  let size;
-  try {
-    const info = statSync(file);
-    if (!info.isFile()) throw new Error('not a file');
-    size = info.size;
-  } catch {
-    res.writeHead(404).end('not found');
-    return;
-  }
-  res.writeHead(200, {
-    'content-type': TYPES[extname(file).toLowerCase()] ?? 'application/octet-stream',
-    'content-length': size,
-    'cache-control': 'no-store',
-  });
+  res.writeHead(200, { "content-type": mime[extname(file)] ?? "application/octet-stream" });
   createReadStream(file).pipe(res);
-}).listen(port, '127.0.0.1', () => {
-  console.log(`app/ is on http://localhost:${port}`);
+});
+
+server.listen(port, "127.0.0.1", () => {
+  console.log(`guide running at http://localhost:${port}/`);
 });

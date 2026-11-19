@@ -1,41 +1,47 @@
-// GTA VI trophy guide & tracker — the hand-in program (Node 22, stdlib only).
+// Entry point: hands this guide in as a make.fun dossier entry.
 //
-// The entry is the repo's app/ folder: plain static files served at app/index.html
-// (two ES modules, one stylesheet, one JSON data file, no build step), working
-// offline with no network at runtime. This program copies app/ and screenshots/
-// beside this file into /output and writes /output/dossier.json with the vendored
-// make.fun library, which is what the judge reads.
+// What it does, in order: copy the guide (app/) and its screenshots into
+// the output directory, then ask the kit's dossier library to build
+// dossier.json from exactly those copied files. The dossier is built from
+// the output copy, never from the repository, so the bytes the judge reads
+// are the bytes that were handed in.
 //
-// Run it locally with MAKEFUN_OUTPUT_DIR standing in for /output:
-//   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
-// Serve the guide itself with `node serve.ts`, then open http://localhost:8080.
+// Outside the grader, MAKEFUN_OUTPUT_DIR stands in for /output.
+import { copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { buildDossier } from "./vendor/makefun-frontend.ts";
 
-import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { buildDossier } from './vendor/makefun-frontend.ts';
+const repoRoot = dirname(fileURLToPath(import.meta.url));
+const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 
-const repoRoot = fileURLToPath(new URL('.', import.meta.url));
-const outputDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+// The caps the competition sets for this entry: the text budget for the
+// dossier, at most four screenshots of at most 256 KiB each, and the app
+// limits from the rules (993 files, 48 MiB, 1,000-byte paths).
+const caps = {
+  app_max_bytes: 48 * 1024 * 1024,
+  app_max_files: 993,
+  app_path_max_bytes: 1000,
+  screenshots: { max: 4, max_bytes: 256 * 1024 },
+  text_max_bytes: 163840,
+};
 
-function handIn() {
-  mkdirSync(outputDir, { recursive: true });
-  cpSync(join(repoRoot, 'app'), join(outputDir, 'app'), { recursive: true });
-
-  const shotsOut = join(outputDir, 'screenshots');
-  mkdirSync(shotsOut, { recursive: true });
-  const shotsIn = join(repoRoot, 'screenshots');
-  if (existsSync(shotsIn)) cpSync(shotsIn, shotsOut, { recursive: true });
-
-  // The gate's own caps: at most 4 screenshots, each at most 256 KiB; app/ at
-  // most 993 files and directories and 48 MiB; the dossier text at most 160 KiB.
-  const dossier = buildDossier(outputDir, {
-    text_max_bytes: 163840,
-    screenshots: { max: 4, max_bytes: 262144 },
-    app_max_files: 993,
-    app_max_bytes: 50331648,
-  });
-  writeFileSync(join(outputDir, 'dossier.json'), dossier);
+function copyTreeInto(sourceDir: string, targetDir: string): void {
+  mkdirSync(targetDir, { recursive: true });
+  for (const name of readdirSync(sourceDir)) {
+    const from = join(sourceDir, name);
+    const to = join(targetDir, name);
+    if (statSync(from).isDirectory()) cpSync(from, to, { recursive: true });
+    else copyFileSync(from, to);
+  }
 }
 
-handIn();
+mkdirSync(outDir, { recursive: true });
+copyTreeInto(join(repoRoot, "app"), join(outDir, "app"));
+if (existsSync(join(repoRoot, "screenshots"))) {
+  copyTreeInto(join(repoRoot, "screenshots"), join(outDir, "screenshots"));
+}
+
+const dossier = buildDossier(outDir, caps);
+writeFileSync(join(outDir, "dossier.json"), dossier);
+console.log(`wrote dossier.json (${dossier.length} bytes) to ${outDir}`);
