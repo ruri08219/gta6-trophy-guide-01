@@ -4,67 +4,44 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GTA VI Trophy Guide &amp; Tracker — all 55 PS5 trophies</title>
+<meta name="description" content="An offline guide and tracker for every Grand Theft Auto VI PlayStation 5 trophy: official names, descriptions and grades, cited guides, a roadmap to the Platinum, and a checklist saved in your browser.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="masthead">
-  <div>
-    <h1>GTA VI Trophy Guide &amp; Tracker</h1>
-    <p class="subtitle">Every one of the 55 PlayStation 5 trophies — official names, descriptions and grades,
-      a guide to each in our own words with its sources, a roadmap to the Platinum, and a checklist
-      that saves in your browser. Works fully offline.</p>
-  </div>
-  <div class="facts" aria-label="Trophy list facts">
-    <span><strong>55</strong> trophies</span>
-    <span><strong>1</strong> Platinum</span>
-    <span><strong>2</strong> Gold</span>
-    <span><strong>6</strong> Silver</span>
-    <span><strong>46</strong> Bronze</span>
-    <span><strong>28</strong> hidden</span>
-    <span><strong>0</strong> online</span>
-    <span><strong>~200 h</strong> to Platinum</span>
-  </div>
+  <p class="eyebrow">Grand Theft Auto VI · PlayStation 5 · 55 trophies</p>
+  <h1>GTA VI Trophy Guide &amp; Tracker</h1>
+  <p class="lede">Every official trophy, its guide in our own words with its sources beside it, a roadmap to the Platinum, and a checklist that remembers your progress. Works offline — this page loads nothing from the network.</p>
 </header>
 
 <main>
-  <section class="notice" id="honesty-note">
-    <h2>Read this first</h2>
-    <p>Grand Theft Auto VI released on 19 November 2026. The trophy names, descriptions and grades here are
-      the official list as PlayStation publishes it (Exophase and PSNProfiles agree on all 55). Every guide is
-      written in our own words from those descriptions plus the launch-era guides cited beside each trophy.
-      Where the cited guides have not yet confirmed an exact trigger, the guide says so instead of inventing
-      one — check the cited source again as more players confirm it. Keep cheats off while you chase trophies:
-      GTABase and TechWiser report that cheats disable trophies and saving.</p>
-  </section>
-
-  <section class="notice missable" id="missable-warning">
-    <h2>One trophy may be missable</h2>
-    <p><strong>Positive Mental Attitude</strong> (meditate at every spot across Leonida) is the only trophy
-      PowerPyx and GTABase flag as possibly missable: the first meditation, Lucia on the balcony at
-      Jason&rsquo;s house in Chapter 1, disappears after Chapter 1, and it is unconfirmed whether the trophy
-      needs it. Do it in Chapter 1 to be safe. Everything else can be finished in free roam after the story —
-      PowerPyx reports no mission gold medals, no mission replay, and one playthrough is enough.</p>
-  </section>
-
   <section class="progress" aria-label="Progress">
-    <div class="progress-text"><span id="progress-count">0 of 55 earned</span><span id="progress-pct">0%</span></div>
-    <div class="bar"><div id="progress-fill" style="width:0%"></div></div>
-    <p id="progress-grades" class="grade-counts"></p>
+    <div class="progress-top">
+      <p id="progress-count">0 of 55 earned</p>
+      <p class="grades-line">1 Platinum · 2 Gold · 6 Silver · 46 Bronze · 28 hidden · 0 online</p>
+    </div>
+    <div class="bar" role="progressbar" aria-label="Trophies earned" aria-valuemin="0" aria-valuemax="55" aria-valuenow="0" id="progress-bar-wrap">
+      <div class="bar-fill" id="progress-bar"></div>
+    </div>
   </section>
 
-  <section class="controls" aria-label="Tracker controls">
-    <label class="search">Search <input id="search" type="search" placeholder="Trophy name, mission, or keyword…" autocomplete="off"></label>
-    <fieldset class="kinds" id="kind-filters">
-      <legend>Kind</legend>
-      <button type="button" data-kind="all" class="active">All 55</button>
-      <button type="button" data-kind="story">Story</button>
-      <button type="button" data-kind="missable">Missable</button>
-      <button type="button" data-kind="collectibles">Collectibles</button>
-      <button type="button" data-kind="activities">Activities</button>
-      <button type="button" data-kind="online">Online</button>
-    </fieldset>
-    <label>Grade
-      <select id="grade">
+  <aside id="missable-warning" class="warning">
+    <strong>Watch out — one possibly missable trophy.</strong>
+    <span>Positive Mental Attitude asks you to meditate at every spot in Leonida, and its first spot is only offered in Chapter 1. Meditate there before the story moves on; the rest can wait.</span>
+  </aside>
+
+  <section class="controls" aria-label="Find and filter trophies">
+    <input type="search" id="search" placeholder="Search a trophy, e.g. meditat…" aria-label="Search trophies">
+    <div id="kind-filters" role="group" aria-label="Filter by kind">
+      <button type="button" data-kind="all" aria-pressed="true">All</button>
+      <button type="button" data-kind="story" aria-pressed="false">Story · 25</button>
+      <button type="button" data-kind="missable" aria-pressed="false">Missable · 1</button>
+      <button type="button" data-kind="collectibles" aria-pressed="false">Collectibles · 8</button>
+      <button type="button" data-kind="activities" aria-pressed="false">Activities · 21</button>
+      <button type="button" data-kind="online" aria-pressed="false">Online · 0</button>
+    </div>
+    <label class="grade-pick">Grade
+      <select id="grade-filter" aria-label="Filter by grade">
         <option value="all">All grades</option>
         <option value="platinum">Platinum</option>
         <option value="gold">Gold</option>
@@ -72,43 +49,30 @@
         <option value="bronze">Bronze</option>
       </select>
     </label>
-    <label class="check"><input id="spoiler" type="checkbox"> Hide story spoilers</label>
-    <label class="check"><input id="earned-only" type="checkbox"> Earned only</label>
-    <button id="export" type="button">Export progress</button>
-    <label class="import">Import progress <input id="import" type="file" accept="application/json,.json"></label>
-    <button id="reset" type="button">Reset progress</button>
-  </section>
-  <p id="empty-note" class="empty" hidden></p>
-
-  <section class="roadmap" id="roadmap-section" aria-label="Roadmap to the Platinum">
-    <h2>Roadmap to the Platinum — <span class="plat">Vice Got a Price!</span></h2>
-    <p class="roadmap-intro">Nine stages, in order. The story first (about 60–80 hours), then the map, then
-      the cleanup — the Platinum pops right after A Long Road, the 100% completion gold. Built from the
-      official descriptions: which story chapters and missions, which collectibles and counts, in what order.
-      Sources: PowerPyx&rsquo;s roadmap and the Of Zen and Computing roadmap.</p>
-    <ol id="roadmap" class="roadmap-list"></ol>
+    <label class="spoiler-pick"><input type="checkbox" id="spoiler"> Hide story trophies until earned (spoiler-safe)</label>
+    <div class="io">
+      <button type="button" id="export">Export progress</button>
+      <label class="import-label" for="import">Import progress</label>
+      <input type="file" id="import" accept=".json,application/json" hidden>
+    </div>
   </section>
 
-  <section aria-label="Trophy checklist">
-    <h2 id="list-heading">The checklist — all 55 trophies</h2>
-    <div id="list" class="trophy-list"></div>
+  <section id="roadmap-section" aria-label="Roadmap to the Platinum">
+    <h2 id="roadmap-heading">Roadmap to the Platinum</h2>
+    <p class="section-note">Nine stages in order, built from the official descriptions: story first, then side strands, exploration, activities, robberies, collectibles and money, and finally 100% completion.</p>
+    <ol id="roadmap"></ol>
   </section>
 
-  <section class="sources" aria-label="Sources">
-    <h2>Sources</h2>
-    <ul>
-      <li>Official trophy list: Exophase and PSNProfiles, agreeing on all 55 names, descriptions and grades (as carried in the kit&rsquo;s starter data).</li>
-      <li><a href="https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/">PowerPyx — GTA 6 Trophy Guide &amp; Roadmap</a> (difficulty 4/10, ~200 hours, 1 playthrough, 1 possibly missable trophy, 42 shooting-range challenges, 18 meditation spots, 80 challenges).</li>
-      <li><a href="https://www.ofzenandcomputing.com/gta-6-trophy-list-trophies-achievements/">Of Zen and Computing — GTA 6 Trophy List</a> (27 visible / 28 hidden split, chapter and side-character structure).</li>
-      <li><a href="https://gta-zone.com/news/gta-6-trophies-achievements/">GTA Zone — GTA 6 Trophy List</a> (missable flag, chapter placement of mission trophies).</li>
-      <li><a href="https://www.gtavibes.com/guides/gta-6-trophy-list-achievements">GTA Vibes — GTA 6 Trophy List</a> and <a href="https://egamers.io/gta-6-trophy-list-all-55-trophies-and-achievements-plus-the-hardest-ones/">eGamers — GTA 6 Trophy List</a> (cross-checks on the list and the missable warning).</li>
-    </ul>
-    <p class="fineprint">An unofficial fan guide. Not affiliated with Rockstar Games or PlayStation. No Rockstar
-      artwork, logos or game screenshots are used anywhere in this guide. Trophy names and descriptions are
-      shown as PlayStation publishes them; all guide text is written for this entry. Your checklist is stored
-      only in this browser (localStorage) and in the file you export — nothing is sent anywhere.</p>
-  </section>
+  <h2 id="list-heading">Trophy checklist</h2>
+  <p class="section-note">Tick a trophy when you earn it — progress is saved in this browser. Open a trophy to read its guide and sources.</p>
+  <p id="empty-note" hidden>No trophies match this filter. Note: the official list has no online trophies, so the online filter is always empty.</p>
+  <div id="trophy-list"></div>
 </main>
+
+<footer>
+  <p>Names, descriptions and grades are PlayStation's official list (Exophase and PSNProfiles agree on all 55). Guides are written in our own words for this entry and cite their sources beside each trophy. No Rockstar artwork or logo is used; the look is our own. The guide runs entirely from its own files — no network needed.</p>
+</footer>
+
 <script type="module" src="app.js"></script>
 </body>
 </html>

@@ -11,45 +11,48 @@ built for the [make.fun bounty “Build the best GTA 6 trophy guide”](https://
 
 - **Every trophy, official and complete:** all 55 names, descriptions and grades as PlayStation
   publishes them (1 Platinum, 2 Gold, 6 Silver, 46 Bronze; 28 hidden; 0 online), each with a
-  guide written in our own words that names its sources beside it.
+  guide written in our own words that names its sources beside it. Triggers the launch-era
+  guides have not confirmed yet are flagged as unconfirmed, never invented.
 - **A tracker:** a checklist saved in your browser (localStorage), with export to a file and
   import back, filters by kind (story, missable, collectibles, activities, online) and grade,
   text search, and a spoiler setting that hides story trophy names and descriptions until earned.
-- **A roadmap to the Platinum:** nine stages in order — story first, then side-character finales,
-  Strangers &amp; Freaks, exploration, races and stunts, robberies, collectibles and money, challenges,
-  and finally 100% completion for A Long Road, after which the Platinum pops.
-- **One trophy may be missable:** Positive Mental Attitude, flagged in the app with the Chapter 1
-  meditation to do before it disappears.
-- **Fully offline:** static files under `app/`, no build step, no network requests at runtime.
-  Serve `app/` with any static server and open `index.html` in desktop Chrome.
+- **A roadmap to the Platinum:** nine stages in order — story first (with the one possibly
+  missable trophy, Positive Mental Attitude, flagged up front), then side-character finales,
+  Strangers &amp; Freaks, exploration, activities and medals, partner play and robberies,
+  collectibles and money, one-offs and challenges, and finally 100% completion for A Long Road,
+  after which the Platinum pops.
 
-## Honesty note
+## How to run it
 
-GTA VI released on 19 November 2026. Where the cited launch-era guides have not yet confirmed an
-exact trigger, the guide says so instead of inventing one. Keep cheats off while chasing trophies:
-launch guides report that cheats disable trophies and saving.
-
-## Run it
+No build step, no network needed — it is plain static files under `app/`:
 
 ```sh
-node serve.ts   # serves app/ at http://localhost:8080
+node serve.ts
+# then open http://localhost:8080
 ```
 
-Build the submission output (what the grader runs):
+Or open `app/index.html` from any static file server with `app/` at its root.
+
+## How to hand it in
 
 ```sh
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-## Files
+That copies `app/` and `screenshots/` to the output directory and writes
+`dossier.json` with the vendored make.fun library (`vendor/makefun-frontend.ts`).
 
-- `app/index.html`, `app/style.css` — the guide's page and look (original design, no game artwork).
-- `app/app.js` — checklist, filters, spoiler setting, export/import.
-- `app/roadmap.js` — the nine-stage roadmap to the Platinum.
-- `app/data/trophies.json` — the 55 official trophies with our own guides and sources.
-- `main.ts` — copies `app/` and `screenshots/` to `/output` and writes `dossier.json`.
-- `screenshots/` — real renders of the app in a browser (checklist, guide detail, roadmap, spoiler view).
+## Layout
+
+- `app/index.html` — the page: progress, filters, roadmap, checklist
+- `app/style.css` — the look (our own design; no Rockstar artwork or logo)
+- `app/app.js` — the tracker: checklist, filters, search, spoiler setting, export/import
+- `app/roadmap.js` — the nine-stage roadmap to the Platinum
+- `app/data/trophies.json` — the 55 official trophies with our guides and sources
+- `screenshots/` — four renders of the guide in a browser (checklist, guide detail,
+  roadmap, spoiler setting)
+- `main.ts` — the hand-in program; `serve.ts` — a tiny local static server
 
 ## License
 
-MIT — see [LICENSE](LICENSE). An unofficial fan guide, not affiliated with Rockstar Games or PlayStation.
+MIT — see [LICENSE](LICENSE).
